@@ -1,4 +1,5 @@
 def insertShiftArray(arr, num):
+    """insert into middle of list"""
     if type(arr) is not list or type(num) is not int:
         raise TypeError('Argument(s) invalid.')
     output = [0] * (len(arr) + 1)
