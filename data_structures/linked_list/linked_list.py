@@ -24,13 +24,26 @@ class LinkedList:
 
     def find(self, val):
         start = self.head
-        search = self.head._next
-        try:
-            while start is not None:
-                if start.val == val:
-                    return True
-                else:
-                    start = search
-                    search = start._next
-        except AttributeError:
-            return False
+        while start:
+            if start.val == val:
+                return True
+            start = start._next
+        return False
+
+    def append(self, val):
+        current = self.head
+        while current._next:
+            current = current._next
+        current._next = Node(val)
+
+    def insert_before(self, val, new_val):
+        current = self.head
+        while current._next.val != val:
+            current = current._next
+        current._next = Node(new_val, current._next)
+
+    def insert_after(self, val, new_val):
+        current = self.head
+        while current.val != val:
+            current = current._next
+        current._next = Node(new_val, current._next)
