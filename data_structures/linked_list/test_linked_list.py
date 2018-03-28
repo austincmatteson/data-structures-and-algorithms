@@ -46,3 +46,19 @@ def test_after(predefined_ll):
     assert (predefined_ll.head._next._next._next._next.val) == 5
     assert (predefined_ll.head._next._next._next._next._next.val) == 11
     assert (predefined_ll.head._next._next._next._next._next._next.val) == 6
+
+
+def test_kth_from_end(predefined_ll):
+    """Test kth from end exists."""
+    assert predefined_ll.kth_from_end(2) == 8
+    assert predefined_ll.kth_from_end(0) == 10
+    assert predefined_ll.kth_from_end(9) == 1
+
+
+def test_kth_from_end_break(predefined_ll):
+    """Test kth from end wrong passes."""
+    with pytest.raises(ValueError):
+        predefined_ll.kth_from_end(10)
+        predefined_ll.kth_from_end(-1)
+    with pytest.raises(TypeError):
+        predefined_ll.kth_from_end('a')
