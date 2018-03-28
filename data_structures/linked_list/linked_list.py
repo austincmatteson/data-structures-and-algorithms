@@ -56,3 +56,14 @@ class LinkedList:
         while current.val != val:
             current = current._next
         current._next = Node(new_val, current._next)
+
+    def kth_from_end(self, k):
+        """Find kth value from end of list."""
+        current = self.head
+        counter = self._size - 1 - k
+        if (counter < 0) | (counter >= self._size):
+            raise ValueError
+        while counter > 0:
+            current = current._next
+            counter -= 1
+        return current.val
