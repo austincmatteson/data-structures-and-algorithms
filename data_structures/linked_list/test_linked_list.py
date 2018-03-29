@@ -1,5 +1,6 @@
 import pytest
 from linked_list import LinkedList as LL
+from ll_merge import merge_lists
 
 
 def test_insert_first_node(empty_ll):
@@ -62,3 +63,53 @@ def test_kth_from_end_break(predefined_ll):
         predefined_ll.kth_from_end(-1)
     with pytest.raises(TypeError):
         predefined_ll.kth_from_end('a')
+
+
+def test_merge_equal(predefined_ll, predefined_ll_other):
+    """Merge equal sized lists."""
+    merged = merge_lists(predefined_ll, predefined_ll_other)
+    assert merged.val == 1
+    assert merged._next.val == 10
+    assert merged._next._next.val == 2
+    assert merged._next._next._next.val == 9
+    counter = 0
+    while merged:
+        merged = merged._next
+        counter += 1
+    assert counter == 20
+
+
+def test_merge_second_short(predefined_ll, predefined_ll_short):
+    """Merge with a shorter second list."""
+    merged = merge_lists(predefined_ll, predefined_ll_short)
+    assert merged.val == 1
+    assert merged._next.val == 11
+    assert merged._next._next.val == 2
+    assert merged._next._next._next.val == 12
+    counter = 0
+    while merged:
+        merged = merged._next
+        counter += 1
+    assert counter == 14
+
+
+def test_merge_first_short(predefined_ll_short, predefined_ll):
+    """Merge with a short first list."""
+    merged = merge_lists(predefined_ll_short, predefined_ll)
+    assert merged.val == 11
+    assert merged._next.val == 1
+    assert merged._next._next.val == 12
+    assert merged._next._next._next.val == 2
+    counter = 0
+    while merged:
+        merged = merged._next
+        counter += 1
+    assert counter == 14
+
+
+def test_merge_none(predefined_ll):
+    """Merge with empty lists."""
+    empty = LL([])
+    assert merge_lists(empty, predefined_ll).val == 1
+    assert merge_lists(predefined_ll, empty).val == 1
+    assert merge_lists(empty, empty) is None
