@@ -67,3 +67,14 @@ class LinkedList:
             current = current._next
             counter -= 1
         return current.val
+
+    def has_loop(self):
+        """Check for creation of a loop."""
+        current = self.head
+        counter = 0
+        while current:
+            counter += 1
+            if counter > self._size:
+                return True
+            current = current._next
+        return False

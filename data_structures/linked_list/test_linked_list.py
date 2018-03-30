@@ -113,3 +113,11 @@ def test_merge_none(predefined_ll):
     assert merge_lists(empty, predefined_ll).val == 1
     assert merge_lists(predefined_ll, empty).val == 1
     assert merge_lists(empty, empty) is None
+
+
+def test_loop(predefined_ll_short):
+    """Test before and after loop created on list."""
+    a = predefined_ll_short
+    assert a.has_loop() is False
+    a.head._next._next._next._next = predefined_ll_short.head
+    assert a.has_loop() is True
