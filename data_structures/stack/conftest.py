@@ -1,5 +1,6 @@
 import pytest
 from stack import Stack
+from queue_with_stacks import Queue
 
 
 @pytest.fixture
