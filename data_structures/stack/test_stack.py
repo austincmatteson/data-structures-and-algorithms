@@ -3,20 +3,24 @@ from queue_with_stacks import Queue
 
 
 def test_empty_stack_has_no_top(empty_stack):
+    """Check is empty."""
     assert empty_stack.top is None
 
 
 def test_insertion(empty_stack):
+    """Insert correctly."""
     assert empty_stack.top is None
     assert empty_stack.push(1).val == 1
 
 
 def test_empty_val_on_insert(empty_stack):
+    """Refuse inserting nothing."""
     with pytest.raises(TypeError):
         empty_stack.push()
 
 
 def test_pop(small_stack):
+    """Remove lifo."""
     assert small_stack.pop() == 5
     assert small_stack.pop() == 4
     assert small_stack.pop() == 3
@@ -26,10 +30,12 @@ def test_pop(small_stack):
 
 
 def test_empty_pop(empty_stack):
+    """Remove nothing when empty."""
     assert empty_stack.pop() is None
 
 
 def test_peek(large_stack, empty_stack):
+    """View top."""
     assert large_stack.peek() == 999
     large_stack.pop()
     assert large_stack.peek() == 998
@@ -40,6 +46,7 @@ def test_peek(large_stack, empty_stack):
 
 
 def test_qstack_add():
+    """Enqueue using stacks."""
     q = Queue()
     assert q.enqueue(1) == 1
     assert q.enqueue(2) == 2
@@ -48,6 +55,7 @@ def test_qstack_add():
 
 
 def test_qstack_remove():
+    """Dequeue using stacks."""
     q = Queue()
     q.enqueue(1)
     q.enqueue(2)

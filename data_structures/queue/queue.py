@@ -28,7 +28,7 @@ class Queue:
     def enqueue(self, val):
         """Push new value into back of queue."""
         eq = Node(val)
-        if not self.front and not self.back:
+        if not self.front:
             self.front = eq
             self.back = self.front
             self._size += 1
