@@ -1,5 +1,6 @@
 import pytest
 from queue_with_stacks import Queue
+from multi_bracket_validation import multi_bracket_validation as mbv
 
 
 def test_empty_stack_has_no_top(empty_stack):
@@ -65,3 +66,25 @@ def test_qstack_remove():
     assert q.dequeue() == 2
     assert q.dequeue() == 3
     assert q.dequeue() == 4
+
+
+def test_bracket_none():
+    """Test no brackets."""
+    assert mbv(' ') is True
+
+
+def test_bracket_true():
+    """Test balanced."""
+    assert mbv('[]') is True
+    assert mbv('{}') is True
+    assert mbv('()') is True
+    assert mbv('{[()]}') is True
+    assert mbv('{dasd[dasd(asdsa)dsad]dasd}') is True
+
+
+def test_bracket_false():
+    """Test unbalanced."""
+    assert mbv('(') is False
+    assert mbv('][') is False
+    assert mbv('()()()(') is False
+    assert mbv('{[}]') is False
