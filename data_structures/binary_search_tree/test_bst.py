@@ -1,5 +1,6 @@
 from fizzbuzztree import fizz_buzz_tree
 from breadth_first_traversal import breadth_first_traversal
+from find_maximum_value_binary_tree import find_maximum_value
 from bst import BST
 import sys
 
@@ -52,3 +53,20 @@ def test_breadth_none(capsys):
     sys.stderr.write("")
     out, err = capsys.readouterr()
     assert out == err
+
+
+def test_max(tree):
+    """Correct output order."""
+    assert find_maximum_value(tree) == 16
+
+
+def test_max_unbalanced(tree):
+    """Correct output order."""
+    tree.insert(4)
+    assert find_maximum_value(tree) == 16
+
+
+def test_max_none(capsys):
+    """No output."""
+    a = BST()
+    assert find_maximum_value(a) is None
