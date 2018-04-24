@@ -50,7 +50,6 @@ class KTree:
             """Traverse."""
             if node is None:
                 return
-
             for children in node.children:
                 _walk(children)
 
@@ -67,19 +66,22 @@ class KTree:
             for children in temp_root.children:
                 q.enqueue(children)
             operation(temp_root)
+            q.dequeue()
             if q.front is None:
                 break
             temp_root = q.front.val
 
-    def insert(self, val, parent):
+    def insert(self, val, parent=None):
         """Insert at selected parent."""
         def _find_parent(current):
             if current.val == parent:
-                current.children.append(val)
+                current.children.append(self.Node(val))
         node = self.Node(val)
 
         if self.root is None:
             self.root = node
             return node
-
-        self.breadth_first_traversal(_find_parent)
+        elif parent:
+            self.breadth_first_traversal(_find_parent)
+        else:
+            raise ValueError('Please specify a parent value.')
