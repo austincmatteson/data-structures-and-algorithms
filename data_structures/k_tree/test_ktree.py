@@ -1,4 +1,5 @@
 from k_tree import KTree as K
+from print_level_order import print_level_order as plo
 import sys
 import pytest
 
@@ -109,3 +110,22 @@ def test_str(tree):
 def test_node(tree):
     """Return correct format."""
     assert type(tree.root.__repr__()) is str
+
+
+def test_plo(tree):
+    """Correct output."""
+    assert plo(tree) == '10\n536meow\n15\n11'
+
+
+def test_plo_empty():
+    """No nodes."""
+    k = K()
+    with pytest.raises(AttributeError):
+        assert plo(k)
+
+
+def test_plo_single(tree):
+    """No children."""
+    k = K()
+    k.insert(1)
+    assert plo(k) == '1'
