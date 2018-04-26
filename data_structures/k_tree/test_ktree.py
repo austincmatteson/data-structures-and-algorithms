@@ -1,5 +1,6 @@
 from k_tree import KTree as K
 from print_level_order import print_level_order as plo
+from find_matches import find_matches as fm
 import sys
 import pytest
 
@@ -129,3 +130,27 @@ def test_plo_single(tree):
     k = K()
     k.insert(1)
     assert plo(k) == '1'
+
+
+def test_matches_none(tree):
+    """No matches."""
+    assert fm(tree, 300) == []
+
+
+def test_matches_one(tree):
+    """One match."""
+    test = fm(tree, 'meow')
+    assert len(test) == 1
+    assert test[0].val == 'meow'
+
+
+def test_matches_many():
+    """All matches."""
+    k = K()
+    k.insert(1)
+    k.insert(2, 1)
+    k.insert(2, 1)
+    k.insert(2, 1)
+    k = fm(k, 2)
+    for each in k:
+        assert each.val == 2
