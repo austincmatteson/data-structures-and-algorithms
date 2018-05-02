@@ -2,7 +2,7 @@ from hash_table import HashTable as HT
 
 
 def repeated_word(string):
-    """."""
+    """Return first repeated word."""
     try:
         all_words = string.lower().split(' ')
     except TypeError:
