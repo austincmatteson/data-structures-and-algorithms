@@ -1,8 +1,10 @@
 from fizzbuzztree import fizz_buzz_tree
 from breadth_first_traversal import breadth_first_traversal
 from find_maximum_value_binary_tree import find_maximum_value
+from tree_intersection import tree_intersection as ti
 from bst import BST
 import sys
+import pytest
 
 
 def test_fizz(tree):
@@ -70,3 +72,21 @@ def test_max_none(capsys):
     """No output."""
     a = BST()
     assert find_maximum_value(a) is None
+
+
+def test_intersect(tree):
+    """Get all intersections."""
+    assert ti(tree, tree) == {3, 5, 6, 10, 11, 15, 16}
+
+
+def test_no_intersect(tree):
+    """Get an empty set."""
+    bst = BST()
+    bst.insert(500)
+    assert len(ti(bst, tree)) == 0
+
+
+def test_not_a_tree_intersect():
+    """Raise error without trees."""
+    with pytest.raises(AttributeError):
+        assert ti(1, 2)
