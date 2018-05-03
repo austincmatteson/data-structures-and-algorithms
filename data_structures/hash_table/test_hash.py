@@ -1,5 +1,6 @@
 from hash_table import HashTable as HT
 from repeated_word import repeated_word as rw
+from left_join import left_join as lj
 import pytest
 
 
@@ -92,3 +93,40 @@ def test_repeated_word_fail():
     """Require string."""
     with pytest.raises(AttributeError):
         assert rw(1)
+
+
+def test_join():
+    """Test join."""
+    h = HT()
+    j = HT()
+    h.set('run', 'jog')
+    h.set('python', 'snake')
+    h.set('meow', 'cat')
+    j.set('run', 'walk')
+    j.set('viper', 'snake')
+    j.set('meow', 'dog')
+    k = lj(h, j)
+    assert k.buckets[k._hash_key('run')].head.val == {'run': ('jog', 'walk')}
+    assert k.buckets[k._hash_key('python')].head.val == {'python': ('snake', None)}
+    assert k.buckets[k._hash_key('meow')].head.val == {'meow': ('cat', 'dog')}
+
+
+def test_join_not_included():
+    """Do not join if not joinable."""
+    h = HT()
+    j = HT()
+    h.set('run', 'jog')
+    h.set('python', 'snake')
+    h.set('meow', 'cat')
+    j.set('run', 'walk')
+    j.set('viper', 'snake')
+    j.set('meow', 'dog')
+    k = lj(h, j)
+    with pytest.raises(AttributeError):
+        assert k.buckets[k._hash_key('viper')].head.val
+
+
+def test_join_non_hash():
+    """Refuse non hash tables."""
+    with pytest.raises(AttributeError):
+        assert lj(1, 2)
