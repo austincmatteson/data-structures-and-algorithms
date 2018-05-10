@@ -2,6 +2,7 @@ import pytest
 from selection import selection_sort as ss
 from mergesort import mergesort as ms
 from quicksort import quick_sort as qs
+from radix_sort import radix as r
 
 
 def test_selection_sorted():
@@ -59,3 +60,22 @@ def test_quick_nonlist():
     with pytest.raises(TypeError):
         assert qs(5)
         assert qs('meow')
+
+
+def test_radix_sorted():
+    """Return self."""
+    assert r([]) == []
+    assert r([1]) == [1]
+    assert r([1, 2, 3]) == [1, 2, 3]
+
+
+def test_radix_random():
+    """Return sorted from random."""
+    assert r([34, 19, 42, 2018, 0, 2005, 77, 2099]) == [0, 19, 34, 42, 77, 2005, 2018, 2099]
+
+
+def test_radix_nonlist():
+    """Raise error."""
+    with pytest.raises(TypeError):
+        assert r(5)
+        assert r('meow')
